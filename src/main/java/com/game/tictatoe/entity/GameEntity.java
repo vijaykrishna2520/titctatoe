@@ -22,13 +22,23 @@ public class GameEntity implements Serializable {
     @JsonIgnore
     @Embedded
     private Box box;
+    @JsonIgnore
+    private int nextPlayer;
+    @JsonIgnore
+    private int winner=-1;
+    @JsonIgnore
+    private boolean gameOver=false;
 
     public GameEntity() {
     }
 
-    public GameEntity(Long id, String name) {
+    public GameEntity(Long id, String name, Box box, int nextPlayer, int winner, boolean gameOver) {
         this.id = id;
         this.name = name;
+        this.box = box;
+        this.nextPlayer = nextPlayer;
+        this.winner = winner;
+        this.gameOver = gameOver;
     }
 
     public Long getId() {
@@ -55,16 +65,28 @@ public class GameEntity implements Serializable {
         this.box = box;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof GameEntity that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getBox(), that.getBox());
+    public int getNextPlayer() {
+        return nextPlayer;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getBox());
+    public void setNextPlayer(int nextPlayer) {
+        this.nextPlayer = nextPlayer;
+    }
+
+    public int getWinner() {
+        return winner;
+    }
+
+    public void setWinner(int winner) {
+        this.winner = winner;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 
     @Override
@@ -73,6 +95,9 @@ public class GameEntity implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", box=" + box +
+                ", nextPlayer=" + nextPlayer +
+                ", winner=" + winner +
+                ", gameOver=" + gameOver +
                 '}';
     }
 }

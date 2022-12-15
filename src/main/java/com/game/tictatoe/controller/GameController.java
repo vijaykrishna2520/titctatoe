@@ -42,8 +42,8 @@ public class GameController {
         }
     }
     @PutMapping("/box")
-    public String updataBoxValue(@RequestParam Long gameId,@RequestParam Long playerId,@RequestParam int boxNumber){
-        gameService.updateBoxValue(gameId,playerId,boxNumber);
+    public Boolean updataBoxValue(@RequestParam Long gameId,@RequestParam int playerNumber,@RequestParam int boxNumber){
+        return gameService.updateBoxValue(gameId,playerNumber,boxNumber);
     }
 
 }

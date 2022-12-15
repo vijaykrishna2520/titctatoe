@@ -46,19 +46,21 @@ public class GameService {
         return gameRespository.save(gameEntity);
     }
 
-    public GameEntity updateBoxValue(Long gameId, Long playerId,int boxNumber) {
+    public boolean updateBoxValue(Long gameId, int playerNumber,int boxNumber) {
         GameEntity gameEntity=getGameById(gameId);
         if(gameEntity!=null){
-
+           return updateBoxByPlayerIdAndGameId(gameEntity,playerNumber,boxNumber);
         }
         else{
-            return null;
+            return false;
         }
     }
-    public GameEntity updateBoxByPlayerIdAndGameId(GameEntity gameEntity,Long playerId,int boxNumber){
-        if(playerId==1){
-            gameRespository.updateBoxByPlayerIdAndGameId(gameEntity,1,boxNumber);
-
+    public Boolean updateBoxByPlayerIdAndGameId(GameEntity gameEntity,int playerNumber,int boxNumber){
+        if(playerNumber==0){//checking player 1 or not
+            gameRespository.updateBoxByPlayerIdAndGameId(gameEntity.getId(),1,boxNumber,0);
+        }
+        else{
+            gameRespository.updateBoxByPlayerIdAndGameId(gameEntity.getId(),0,boxNumber,1);
         }
     }
 

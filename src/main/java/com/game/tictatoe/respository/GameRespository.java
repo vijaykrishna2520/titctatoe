@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GameRespository extends CrudRepository<GameEntity,Long>{
     @Modifying
-    @Query("update Game set "+"box"+":boxNumber"+":::")
-    void updateBoxByPlayerIdAndGameId(GameEntity gameEntity, @Param("playerId") int playerId,@Param("boxNumber") int boxNumber);
+    @Query(value="update Game set +" +
+            "box:boxNumber=:boxValue," +
+            "nextPlayer=:nextPlayer where gameId=:gameId",nativeQuery = true)
+    public void updateBoxByPlayerIdAndGameId(@Param("gameId") Long gameId,
+                                             @Param("nextPlayer") int nextPlayer,
+                                             @Param("boxNumber") int boxNumber,
+                                             @Param("boxValue") int boxValue);
 }
